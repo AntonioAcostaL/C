@@ -8,6 +8,25 @@
 #define MAX_TICKS 100000
 #define INTERVALO_NUEVO_CLIENTE 100
 
+void imprimirEstadoColas(Cola* filaPrincipal, Cola* pasilloEmergencia, Cola* caja1, Cola* caja2, Cola* caja3) {
+    printf("Fila Principal: ");
+    PrintQueue(filaPrincipal);
+
+    printf("Pasillo de Emergencia: ");
+    PrintQueue(pasilloEmergencia);
+
+    printf("Caja 1: ");
+    PrintQueue(caja1);
+
+    printf("Caja 2: ");
+    PrintQueue(caja2);
+
+    printf("Caja 3: ");
+    PrintQueue(caja3);
+
+    printf("=========================================================\n");
+}
+
 void simularSupermercado() {
     srand(time(NULL));
 
@@ -72,6 +91,12 @@ void simularSupermercado() {
             if (ticksCliente > 0) {
                 PushQueue(&caja3, ticksCliente);
             }
+        }
+
+        // Imprimir el estado de las colas cada 10000 ticks para seguimiento
+        if (ticks % 10000 == 0) {
+            printf("Ticks: %d\n", ticks);
+            imprimirEstadoColas(&filaPrincipal, &pasilloEmergencia, &caja1, &caja2, &caja3);
         }
 
         ticks++;
